@@ -1,0 +1,13 @@
+<ion-item-group no-padding>
+  <ion-toolbar color="transparent" no-margin>
+    <ion-buttons style="padding: 5px 0px;">
+      <ion-fab-button expand="full" color="medium" *ngFor="let item of filters; let i = index" on-click="onSelect(i)" small
+        [ngClass]="{'active': status [i]}" class="circle" [disabled]="!isReady(item)">
+        <ion-icon [name]="item.icon"></ion-icon>
+      </ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-row class="fab-title">
+    <ion-label *ngFor="let item of filters; let i = index">{{item.title}}</ion-label>
+  </ion-row>
+</ion-item-group>

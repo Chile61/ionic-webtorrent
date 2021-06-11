@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Change Device Name</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="deviceForm" (ngSubmit)="onChangeDevice()">
+    <ion-item>
+      <ion-label position="floating">Device Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button ion-button expand="block" type="submit" [disabled]="!deviceForm.valid">Change</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button ion-button fill="clear" color="primary" expand="block" (click)="dismiss(null)">Cancel</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

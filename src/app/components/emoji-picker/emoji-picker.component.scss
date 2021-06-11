@@ -1,0 +1,62 @@
+ion-slides {
+  --bullet-background: #666;
+}
+
+ion-slide {
+  padding-bottom: 40px;
+}
+
+.emoji-picker {
+  border-top: 1px solid #999;
+  height: 40vh;
+  overflow: scroll;
+}
+
+.emoji-categories {
+  display: flex;
+  background: #5181b824;
+}
+
+.emoji-categories .emoji-item {
+  flex: 1;
+  display: inline-block;
+  padding: 5px;
+  text-align: center;
+  line-height: 9vw;
+  position: relative;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.emoji-picker .emoji-items {
+  padding: 2px;
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  overflow: scroll;
+}
+
+.emoji-title {
+  color: #2e4b6d;
+  font-size: 17px;
+  padding-left: 10px;
+  margin: 3px 0px;
+}
+
+.emoji-items .emoji-group {
+  display: inline-block;
+  min-height: 50px;
+}
+
+.emoji-items .emoji-item {
+  display: block;
+  float: left;
+  width: 12.3vw;
+  height: 12.3vw;
+  font-size: 1.6em;
+  line-height: 12.3vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50px;
+}

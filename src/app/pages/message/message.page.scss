@@ -1,0 +1,514 @@
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.first {
+  flex: 1;
+  background-color: #888;
+}
+.second {
+  width: 100%;
+  min-height: 80px;
+  background-color: #444;
+  display: flex;
+}
+.right-side {
+  margin-left: auto;
+  margin-right: 0px;
+}
+.left-side {
+  margin-left: 0px;
+  margin-right: auto;
+}
+.send-form {
+  // position: absolute;
+  width: 100%;
+  padding-right: 3px;
+  // padding-bottom: 58px;
+  // padding-bottom: calc(58px + constant(safe-area-inset-bottom));
+  // padding-bottom: calc(58px + env(safe-area-inset-bottom));
+  // bottom: 0;
+  border-top: 1px solid #e9e9ec;
+  background-color: white;
+  z-index: 5;
+  white-space: nowrap;
+  text-align: center;
+  display: flex;
+  min-height: 30px;
+}
+.send-form .textinput {
+  min-height: 30px;
+  max-height: 200px;
+  // width: 75%;
+  margin: 0 auto;
+  display: inline;
+  vertical-align: middle;
+  // margin-top: 8px;
+  flex: 7;
+  text-align: left;
+
+  vertical-align: middle;
+  white-space: nowrap;
+  
+  // word-break: keep-all;
+  // white-space: pre;
+  // --padding-top: 16px;
+  // --padding-bottom: 0px;
+  /*
+  border-radius: var(--border-radius);
+  padding: 5px;
+  vertical-align: middle;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+  text-indent: inherit;
+  text-overflow: inherit;
+  text-transform: inherit;
+  white-space: inherit;
+  color: inherit;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  resize: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;*/
+}
+.send-form .chatbutton,
+.btn-emoji {
+  // padding: 6px 8px 4px 8px;
+  border-radius: 40px !important;
+  margin: 2px auto;
+  // flex: 1;
+  --border-radius: 40px !important;
+}
+// .send-form .chatbutton i {
+// vertical-align: baseline;
+// }
+#drop {
+  max-width: 300px;
+  left: 15px;
+  width: auto !important;
+  text-align: left;
+  line-height: 1em;
+}
+#recording-drop {
+  max-width: 200px;
+  left: 140px;
+  padding: 15px;
+}
+.message-log {
+  flex: 1;
+  // position: absolute;
+  width: 100%;
+  // bottom: 150px;
+  // bottom: 40px;
+  // top: 0px;
+  overflow-x: hidden;
+  // overflow-y: auto;
+  /*margin-top: 10px;*/
+  // margin-bottom: 20px;
+  padding-bottom: 10px;
+  font-size: 15px;
+}
+.chat-message {
+  width: 100%;
+  // margin-top: 10px;
+  padding: 5px 0px;
+  overflow: hidden;
+  position: relative;
+}
+.chat-message ion-ripple-effect {
+  color: var(--ion-color-primary);
+}
+/*.chat-message:last-child{
+      margin-bottom: 10px;
+  }*/
+.chat-message ion-button[circle] {
+  width: inherit;
+  height: inherit;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-top: 10px;
+  --padding-bottom: 10px;
+}
+.chat-message ion-button[circle] button {
+  padding: 10px;
+}
+.chat-message .singleEmoji {
+  background: none;
+  font-size: 400%;
+}
+.chat-message .singleEmoji .msg-ts {
+  display: none;
+}
+.select-circle {
+  float: left;
+  // width: 50px;
+  padding: 8px 5px;
+  // margin-right: 15px;
+}
+.select-circle ion-icon {
+  color: var(--ion-color-primary);
+}
+.select-circle ion-icon[name="ellipse-outline"] {
+  color: #cbd9ea;
+}
+.bubble {
+  padding: 10px 15px;
+  margin: 0px 7px;
+  border-radius: 18px;
+  position: relative;
+  max-width: 80%;
+  text-align: left;
+  /*display: inline-block;*/
+  word-wrap: break-word;
+}
+.top-drop-btn,
+.top-drop-btn:hover,
+.top-drop-btn:active,
+.top-drop-btn:focus {
+  padding: 0;
+  background: none;
+}
+#top-drop {
+  width: 150px;
+  left: 50%;
+  margin-left: -75px;
+}
+
+/*
+Chat bubble CSS credits http://codepen.io/samuelkraft/pen/Farhl
+*/
+.clear {
+  clear: both;
+}
+
+.from-me {
+  // color: white;
+  color: #111;
+  background: #cbd9ea; //var(--ion-color-primary);
+  float: right;
+  border-top-right-radius: 0px;
+}
+/*.from-me:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -2px;
+  right: -7px;
+  height: 20px;
+  border-right: 20px solid #CBD9EA; //var(--ion-color-primary);
+  border-bottom-left-radius: 16px 14px;
+  -webkit-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
+.from-me:after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  right: -56px;
+  width: 26px;
+  height: 20px;
+  background: var(--ion-color-primary-contrast);
+  border-bottom-left-radius: 10px;
+  -webkit-transform: translate(-30px, -2px);
+  transform: translate(-30px, -2px);
+}*/
+.from-me a {
+  color: white;
+}
+.bubble a.payment,
+.bubble a.external-link {
+  text-decoration: underline;
+}
+.bubble a.command {
+  line-height: 2;
+}
+
+.from-them {
+  background: #e5e5ea;
+  color: black;
+  float: left;
+  border-top-left-radius: 0px;
+}
+/*.from-them:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  bottom: -2px;
+  left: -7px;
+  height: 20px;
+  border-left: 20px solid #e5e5ea;
+  border-bottom-right-radius: 16px 14px;
+  -webkit-transform: translate(0, -2px);
+  transform: translate(0, -2px);
+}
+.from-them:after {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  bottom: -2px;
+  left: 4px;
+  width: 26px;
+  height: 20px;
+  // background: white;
+  background: var(--ion-color-primary-contrast);
+  border-bottom-right-radius: 10px;
+  -webkit-transform: translate(-30px, -2px);
+  transform: translate(-30px, -2px);
+}*/
+.system {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 100%;
+}
+.system span {
+  color: #888;
+  padding: 0 10px;
+  background-color: var(--ion-color-primary-contrast);
+}
+.system span.padding {
+  padding: 0 10px 0 0;
+}
+.system b {
+  background-color: white;
+  border: 1px dashed #888;
+  border-width: 0 0 1px 0;
+  cursor: pointer;
+}
+.system:before {
+  border-top: 1px solid #666; //#dfdfdf;
+  content: "";
+  margin: 0 auto;
+  /* this centers the line to the full width specified */
+  position: absolute;
+  /* positioning must be absolute here, and relative positioning must be applied to the parent */
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 95%;
+  z-index: -1;
+}
+.switch-line {
+  margin-top: 5px;
+}
+.msg-ts {
+  // color: #eee;
+  color: #333;
+  font-size: 13px;
+  padding-top: 10px;
+  padding-left: 10px;
+  // width: 12%;
+}
+.from-them .msg-ts {
+  color: #333;
+  padding-bottom: 10px;
+}
+@media (max-width: 350px) {
+  .msg-ts {
+    font-size: 8px;
+  }
+}
+.msg-icon {
+  // padding-top: 5px;
+  margin-top: -5px;
+  padding-left: 10px;
+  // width: 12%;
+  text-align: right;
+}
+.msg-icon ion-icon {
+  font-size: 25px;
+  color: #97b3d4;
+}
+.msg-icon.checked ion-icon {
+  color: #228b22; //var(--ion-color-primary);
+}
+.send-form .textinput::-webkit-input-placeholder {
+  white-space: nowrap;
+}
+.dropup-item {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0 15px 0 10px;
+}
+.dropup-item-link {
+  padding: 8px 0 !important;
+  display: inline-block !important;
+  max-width: calc(100% - 10px);
+  // float: left;
+}
+.ellipsis-end {
+  float: left;
+  width: 10px;
+  padding: 8px 0;
+  color: #555555;
+}
+
+.msg-ts.left {
+  float: right;
+}
+.msg-ts.right,
+.msg-icon.right {
+  float: right;
+}
+
+.message-edit {
+  display: flex;
+  flex-direction: row;
+
+  .message-edit-label {
+    border-left: 3px solid var(--ion-color-primary);
+    flex: 1;
+    padding: 5px;
+
+    label.bold {
+      color: var(--ion-color-primary);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    label.ellipsis {
+      font-size: 90%;
+      color: #444;
+    }
+  }
+}
+ion-icon [color="primary"] {
+  color: var(--ion-color-primary);
+}
+
+.media {
+}
+
+.ripple-media-group {
+  display: none;
+  right: -22px;
+  bottom: -16px;
+  transition: ease 0.1s all;
+  position: absolute;
+
+  .media-lock {
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0px 3px 5px #aaa;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 20px;
+
+    ion-icon {
+      display: block;
+      padding: 10px;
+      color: #777;
+    }
+  }
+
+  .ripple-media-btn {
+    --border-radius: 100px !important;
+    border-radius: 100px !important;
+    transition: ease 0.1s all;
+    width: 0px;
+    height: 0px;
+    background: var(--ion-color-primary);
+  }
+}
+
+.ripple-media-group.active {
+  display: inline-block;
+  .ripple-media-btn {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+ion-button.pressed {
+  color: var(--ion-color-primary-contrast);
+  --ripple-color: transparent;
+}
+
+.record-group {
+  height: 59px;
+  display: flex !important;
+
+  .recorded-time {
+    flex: 1;
+    padding: 20px 10px;
+  }
+  .recorded-time:after {
+    content: " ";
+    background: #f00;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-left: 5px;
+    border-radius: 10px;
+    transition: ease 1s background;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+  @keyframes blink {
+    0% {
+      background: #f00;
+    }
+    50% {
+      background: #fff;
+    }
+    100% {
+      background: #f00;
+    }
+  }
+  .record-slide-cancel {
+    flex: 2;
+    padding: 20px;
+    color: #444;
+    ion-icon {
+      vertical-align: middle;
+    }
+  }
+  .record-cancel {
+    flex: 3;
+    padding: 9px 0px;
+    text-align: center;
+  }
+}
+
+.media-record-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 59px;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1;
+  display: none;
+
+  .media-record-camera {
+    width: 50vw;
+    height: 50vw;
+    display: block;
+    margin: calc(50vh - 25vw - 70px) auto;
+    border-radius: 50vw;
+    background: #aaa;
+    overflow: hidden;
+
+    video {
+      object-fit: fill !important;
+    }
+  }
+}
+
+.media-record-overlay.show {
+  display: block;
+}

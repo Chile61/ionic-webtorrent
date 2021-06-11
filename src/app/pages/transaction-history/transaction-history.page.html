@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group no-padding color="transparent" class="active">
+    <ion-row *ngIf="!isLoaded">
+      <ion-col class="align-center">
+        <ion-spinner name="dots" color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  
+    <ion-item *ngFor="let history of transactionHistories; let i = index" color="transparent" no-padding button on-click="onSelect(history, i)">
+      <ion-icon name="wallet-receive" class="custom-icon" *ngIf="history.action === 'received'" padding-left></ion-icon>
+      <ion-icon name="wallet-send" class="custom-icon" *ngIf="history.action === 'sent'" padding-left></ion-icon>
+  
+      <ion-label>{{history.amountStr}}</ion-label>
+      <ion-label>{{getHumanDate(history.time)}} ago</ion-label>
+    </ion-item>
+  
+    <ion-item color="transparent" *ngIf="transactionHistories.length === 0 && isLoaded" lines="none">
+      <ion-label class="align-center">No transactions</ion-label>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

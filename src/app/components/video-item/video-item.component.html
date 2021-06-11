@@ -1,0 +1,79 @@
+<div *ngIf="videoItem.data">
+  <ion-item-group [class.visible]="visibility" no-padding color="transparent" on-click="onToggleItem($event)">
+    <ion-img [src]="getPosterDataURL()" class="background-image" *ngIf="hasPoster()"></ion-img>
+    <ion-item color="transparent" lines="none">
+      <span [ngClass]="{'ellipsis': true}" class="torrent-name">{{index + 1}}. {{videoItem.getVideoName()}}</span>
+
+      <span slot="end" *ngIf="!videoItem.data.isDownloaded">{{getDownloadedCapacity()}} / {{getTotalCapacity()}}</span>
+      <span slot="end" *ngIf="videoItem.data.isDownloaded">{{getTotalCapacity()}}</span>
+    </ion-item>
+
+    <ion-row color="transparent" lines="none">
+      <ion-col>
+        <ion-buttons>
+          <ion-button expand="full" on-click="onConfig()" [disabled]="!isLoggedIn()">
+            <ion-icon slot="icon-only" name="cog-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+  
+      <ion-col size="4" class="vertical-middle">
+      </ion-col>
+  
+      <ion-col size="4" class="vertical-middle">
+      </ion-col>
+    </ion-row>
+
+    <ion-row lines="none" *ngIf="isShowToolbar">
+      <ion-col>
+        <ion-buttons>
+          <ion-button expand="full">
+            <ion-icon slot="icon-only" name="wallet-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+
+      <ion-col size="8">
+        <ion-item color="transparent" lines="none">
+          <ion-label class="align-center">
+            0.0 GSC
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col>
+        <ion-buttons>
+          <ion-button expand="full" on-click="onRemove()">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+    <ion-toolbar color="transparent" *ngIf="isShowToolbar">
+      <ion-buttons>
+        <ion-button expand="full" on-click="onOpen()" [disabled]="!isReady()">
+          <ion-icon slot="icon-only" name="folder-open-outline"></ion-icon>
+        </ion-button>
+  
+        <ion-button expand="full" class="custom-icon-button">
+          <ion-icon slot="icon-only" name="wallet-receive" class="custom-icon"></ion-icon>
+        </ion-button>
+  
+        <ion-button expand="full" class="custom-icon-button">
+          <ion-icon slot="icon-only" name="wallet-send" class="custom-icon"></ion-icon>
+        </ion-button>
+  
+        <ion-button expand="full">
+          <ion-icon slot="icon-only" name="analytics-outline"></ion-icon>
+        </ion-button>
+  
+        <ion-button expand="full" on-click="onPlay()" [disabled]="!isReady()">
+          <ion-icon slot="icon-only" name="play"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-item-group>
+
+  <ion-progress-bar [value]="getPercent()"></ion-progress-bar>
+</div>

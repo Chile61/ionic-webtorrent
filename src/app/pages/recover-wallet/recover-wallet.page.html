@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recover Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group>
+
+    <ion-item color="transparent">
+      <ion-label class="ion-text-wrap">WARNINGS:<br>
+        This will permanently delete all your existing wallets!.</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent active">
+      <ion-label class="ion-text-wrap">
+        Please enter your seed words here to restore your wallet
+      </ion-label>
+    </ion-item>
+    
+    <ion-item color="transparent active">
+      <ion-textarea placeholder="Enter your seed words here." [(ngModel)]="seedWords"></ion-textarea>
+    </ion-item>
+
+    <ion-item button color="transparent" on-click="onEnterWords()">
+      <ion-icon name="refresh-outline" padding-right></ion-icon>
+      <ion-label>Enter seed words and select backup</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent">
+      <ion-label class="ion-text-wrap">WARNINGS:<br>
+        Do not clone wallets, stop using the original wallet with this seed.</ion-label>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

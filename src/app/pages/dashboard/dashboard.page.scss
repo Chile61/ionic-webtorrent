@@ -1,0 +1,15 @@
+.expand-down {
+  overflow: hidden;
+}
+
+.expand-down ion-button {
+  margin-top: -20px;
+  width: 40px;
+  height: 40px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+
+.expand-down ion-button span {
+  padding-top: 5px;
+}

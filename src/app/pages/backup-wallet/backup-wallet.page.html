@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>BackupWallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-group>
+    <ion-item button color="transparent" on-click="onToggle()">
+      <ion-icon name="eye-outline" *ngIf="!isShow" padding-right></ion-icon>
+      <ion-label *ngIf="!isShow">Show the wallet seed words</ion-label>
+
+      <ion-icon name="eye-off-outline" *ngIf="isShow" padding-right></ion-icon>
+      <ion-label *ngIf="isShow">Hide the wallet seed words</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent" class="align-center active">
+      <ion-label class="ion-text-wrap">Your wallet Seed:<br>
+        Write it down and keep it somewhere safe.<br>
+        Do not use it to clone the wallet.</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent" class="item item-text-wrap" *ngIf="isShow">
+      {{seedWords}}
+    </ion-item>
+
+    <ion-item color="transparent" class="align-center active">
+      <ion-label class="ion-text-wrap">Once you have written your wallet seed down, <br>
+        it is recommended to delete it from this device.</ion-label>
+    </ion-item>
+
+    <ion-item button color="transparent" on-click="onRemove()">
+      <ion-icon name="trash-outline" padding-right></ion-icon>
+      <ion-label>Delete words</ion-label>
+    </ion-item>
+
+    <ion-row *ngIf="exporting">
+      <ion-col class="align-center">
+        <ion-spinner name="dots" color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="walletExport()" expand="block" [disabled]="exporting">Backup</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-item-group>
+</ion-content>

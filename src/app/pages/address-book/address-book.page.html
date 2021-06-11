@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Address Book</ion-title>
+    <ion-buttons slot="end">
+      <ion-button on-click="onAddAddress()">
+        <ion-icon slot="icon-only" name="person-add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar color="transparent" no-margin>
+    <ion-buttons>
+      <ion-button expand="full">
+        <ion-icon slot="icon-only" name="people-outline"></ion-icon>
+      </ion-button>
+
+      <ion-item color="transparent" class="search-text">
+        <ion-label position="floating">Search</ion-label>
+        <ion-input type="text" [(ngModel)]="searchKey"></ion-input>
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+
+    <ion-item color="transparent" *ngFor="let item of filteredOutAddresses(); let i = index" button
+      on-click="onClickAddress($event, item)">
+      <ion-label>
+        {{item.name}}
+        <small disabled>{{item.address}}</small>
+      </ion-label>
+
+      <ion-buttons>
+        <ion-button expand="full" on-click="onShare(i, item)">
+          <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button expand="full" on-click="onEdit(i, item)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button expand="full" on-click="onRemove(i, item)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+</ion-content>

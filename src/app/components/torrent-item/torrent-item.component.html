@@ -1,0 +1,116 @@
+<div *ngIf="isShowByFilter()">
+<ion-item-group [ngClass]="{'has-poster': hasPoster()}" [class.visible]="visibility" no-padding color="transparent" on-click="onToggleItem($event)">
+  <!-- [ngStyle]="{'background-image': 'url(' + getPosterDataURL() + ')'}"  -->
+  <ion-img [src]="getPosterDataURL()" class="background-image" *ngIf="hasPoster()"></ion-img>
+  <ion-item color="transparent" lines="none" *ngIf="isShow()">
+    <span [ngClass]="{'ellipsis': true}" class="torrent-name">{{index + 1}}. {{getTorrentName()}}</span>
+
+    <span slot="end">{{getTotalCapacity()}}</span>
+  </ion-item>
+
+  <ion-row color="transparent" lines="none">
+    <ion-col>
+      <ion-buttons>
+        <ion-button expand="full" on-click="onConfig()" [disabled]="!isLoggedIn()">
+          <ion-icon slot="icon-only" name="cog-outline"></ion-icon>
+        </ion-button>
+
+        <!-- CheckBox for pause / resume -->
+        <ion-button expand="full" on-click="onPause()" [disabled]="!isReady()" *ngIf="!isPaused()">
+          <ion-icon slot="icon-only" name="checkbox-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button expand="full" on-click="onResume()" [disabled]="!isReady() && !isIntroPaused()" *ngIf="isPaused()">
+          <ion-icon slot="icon-only" name="square-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+
+    <ion-col size="4" class="vertical-middle">
+      <ion-label class="ellipsis" *ngIf="!isSeeding()">
+        <ion-icon name="caret-down-outline"></ion-icon>
+        <span>&nbsp;{{getDownloadSpeed()}} /s</span>
+      </ion-label>
+
+      <ion-item color="transparent" lines="none" *ngIf="isSeeding() && address && !isShowToolbar">
+        <ion-label class="align-center">
+          {{balance.amount}}
+        </ion-label>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="4" class="vertical-middle">
+      <ion-label class="ellipsis">
+        <ion-icon name="caret-up-outline"></ion-icon>
+        <span>&nbsp;{{getUploadSpeed()}} /s</span>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+
+  <ion-row lines="none" *ngIf="isShowToolbar">
+    <ion-col>
+      <ion-buttons>
+        <ion-button expand="full" [disabled]="!isReady()">
+          <ion-icon slot="icon-only" name="wallet-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+
+    <ion-col size="8">
+      <ion-item color="transparent" lines="none">
+        <ion-label class="align-center">
+          {{balance.amount}}
+        </ion-label>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-buttons>
+        <ion-button expand="full" on-click="onRemove()">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+
+  <ion-toolbar color="transparent" *ngIf="isShowToolbar" class="toolbar-tab">
+    <ion-buttons>
+      <ion-button expand="full" on-click="onOpen()" [disabled]="!isReady()">
+        <ion-icon slot="icon-only" name="folder-open-outline"></ion-icon>
+      </ion-button>
+
+
+      <ion-button expand="full" class="custom-icon-button" on-click="onTab(1)" [ngClass]="{active: tabIndex === 1}">
+        <ion-icon slot="icon-only" name="wallet-receive" class="custom-icon"></ion-icon>
+      </ion-button>
+
+      <ion-button expand="full" class="custom-icon-button" on-click="onTab(2)" [ngClass]="{active: tabIndex === 2}">
+        <ion-icon slot="icon-only" name="wallet-send" class="custom-icon"></ion-icon>
+      </ion-button>
+
+      <ion-button expand="full" on-click="onTab(3)" [ngClass]="{active: tabIndex === 3}">
+        <ion-icon slot="icon-only" name="analytics-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button expand="full" on-click="onPlay()" [disabled]="!isReady()" *ngIf="!isPlaying()">
+        <ion-icon slot="icon-only" name="play"></ion-icon>
+      </ion-button>
+
+      <ion-button expand="full" on-click="onStopVideo()" [disabled]="!isReady()" *ngIf="isPlaying()">
+        <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-item-group>
+<video #video id="player" autoplay controls loop width="100%" *ngIf="isPlaying()"></video>
+
+<app-ocore-receiver *ngIf="tabIndex === 1 && visibility" [address]="address" (changeMainWalletTabEvent)="onTab($event)"></app-ocore-receiver>
+<app-ocore-sender *ngIf="tabIndex === 2 && visibility" [address]="address" (changeMainWalletTabEvent)="onTab($event)"></app-ocore-sender>
+<app-transaction-history *ngIf="tabIndex === 3 && visibility" [address]="address" (changeMainWalletTabEvent)="onTab($event)"></app-transaction-history>
+
+<ion-progress-bar [value]="getPercent()" *ngIf="isReady() && !isIntroPaused()"></ion-progress-bar>
+<ion-progress-bar type="indeterminate" *ngIf="!isReady() && !isIntroPaused()"></ion-progress-bar>
+
+<!-- For Generate Poster -->
+<video #posterVideo id="video-for-poster"></video>
+</div>

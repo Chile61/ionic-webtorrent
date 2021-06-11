@@ -1,0 +1,314 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+$light-color: #b3b3b3;
+
+.ellipsis {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.m-v-center {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.rotate90 {
+  transform: rotate(90deg);
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+.rotate270 {
+  transform: rotate(270deg);
+}
+
+ion-buttons {
+  display: flex !important;
+}
+
+ion-buttons ion-button,
+ion-buttons ion-fab-button {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ion-buttons ion-fab-button[small] {
+  height: calc(100vw / 9);
+  width: calc(100vw / 9);
+}
+
+ion-buttons ion-button {
+  flex: 1 !important;
+}
+
+ion-button.active {
+  background-color: var(--ion-color-primary-tint);
+  color: var(--ion-color-primary-contrast);
+}
+
+.vertical-middle {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+ion-icon[size='medium'] {
+  font-size: 32px;
+}
+
+small {
+  color: #777;
+}
+
+.block {
+  display: block;
+}
+
+.description {
+  --color: #777;
+  color: #777;
+}
+
+/*
+ion-item-group.active,
+ion-item-group.active *,
+ion-item.active {
+  // --ion-color-base: #444;
+  // --background-color: #444;
+  --ion-color-base: var(--ion-color-primary-tint);
+  --background-color: var(--ion-color-primary-tint);
+  // background-color: #444;
+  // --ion-color-contrast: #eee;
+  // --color: #eee;
+  // color: #eee;
+}*/
+ion-item-group.active,
+ion-item-group.active > *,
+ion-item-group.active ion-item,
+ion-item-group.active ion-buttons,
+ion-item-group.active ion-button {
+  // --ion-color-base: #444;
+  // --background-color: #444;
+  // background-color: #444;
+  --ion-color-base: var(--ion-color-primary-tint);
+  --background-color: var(--ion-color-primary-tint);
+  background-color: var(--ion-color-primary-tint);
+  color: var(--ion-color-primary-contrast);
+}
+
+*[padding-right] {
+  padding-right: 16px;
+}
+
+*[padding-left] {
+  padding-left: 16px;
+}
+
+ion-item[color=grey] {
+  --ion-color-base: #444;
+  --background-color: #444;
+  background-color: #444;
+  --ion-background-color: #444;
+}
+
+ion-item.coinaddress {
+  --highlight-background: var(--ion-color-danger, #f1453d);
+}
+
+ion-item.coinaddress.verified {
+  --highlight-background: var(--ion-color-success, #2dd36f);
+}
+
+ion-item {
+  --border-color: var(--ion-color-medium);
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 20;
+  top: 0;
+  left: 0;
+}
+
+.overlay > * {
+  height: 100%;
+}
+
+ion-button.circle {
+  // --border-radius: 100px;
+  border-radius: 50%;
+}
+
+ion-fab-button.active {
+  --ion-color-base: var(--ion-color-primary) !important;
+}
+
+.fab-title > ion-label {
+  flex: 1 !important;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 12px !important;
+  text-align: center;
+  padding-top: 5px;
+}
+
+ion-icon.custom-icon {
+  mask-size: contain;
+  mask-position: 50% 50%;
+  mask-repeat: no-repeat;
+  background: currentColor;
+  width: 1em;
+  height: 1em;
+}
+
+ion-icon[name=wallet-receive] {
+  mask-image: url('./assets/icon/wallet-receive.svg');
+}
+
+ion-icon[name=wallet-send] {
+  mask-image: url('./assets/icon/wallet-send.svg');
+}
+
+ion-button[circle] {
+  --border-radius: 100px;
+  width: 50px;
+  height: 50px;
+}
+
+ion-badge {
+  position: absolute;
+  top: -0.2rem;
+  right: -0.2rem;
+  opacity: 0.9;
+
+  & ~ ion-icon {
+    margin-right: 1.2rem;
+  }
+}
+
+span.error {
+  color: var(--ion-color-danger);
+}
+
+// Vadim modified here
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.pt-1rem {
+  padding-top: 1rem;
+}
+
+.pt-dot5rem {
+  padding-top: 0.5rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.fs-dot8 {
+  font-size: 0.8rem;
+}
+.fs-dot5 {
+  font-size: 0.5rem;
+}
+
+.full-height {
+  height: 100%
+}
+
+.color-light {
+  color: $light-color;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.bottom-0 {
+  bottom: 0
+}
+.right-0 {
+  right: 0
+}
+
+ion-label.address {
+  white-space: break-spaces !important;
+}

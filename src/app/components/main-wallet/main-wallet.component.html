@@ -1,0 +1,61 @@
+<ion-item-group no-padding>
+  <ion-row lines="none">
+    <ion-col>
+      <ion-buttons>
+        <ion-button expand="full" on-click="onSeedWeb()">
+          <ion-icon slot="icon-only" name="globe-outline"></ion-icon>
+        </ion-button>
+<!-- disable seednet
+        <ion-button expand="full" on-click="onSeedNet()">
+          <ion-icon slot="icon-only" name="planet-outline"></ion-icon>
+        </ion-button>
+-->
+      </ion-buttons>
+    </ion-col>
+
+    <ion-col size="6" on-click="onToggleToolbar()">
+      <ion-item color="transparent" lines="none">
+        <ion-label class="align-center">
+          {{balance.amount}}
+        </ion-label>
+      </ion-item>
+    </ion-col>
+
+    <ion-col>
+      <ion-buttons>
+        <ion-button expand="full" on-click="onChat()">
+          <ion-badge *ngIf="chatBadgeNumber" color="danger">{{chatBadgeNumber}}</ion-badge>
+          <ion-icon slot="icon-only" name="chatbubbles-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+
+  <ion-buttons *ngIf="isShowToolbar">
+    <ion-button expand="full" on-click="onTab(0)" [ngClass]="{'active': tabIndex === 0}">
+      <ion-icon slot="icon-only" name="wallet-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button expand="full" on-click="onTab(1)" [ngClass]="{'active': tabIndex === 1}">
+      <ion-icon slot="icon-only" name="wallet-receive" class="custom-icon"></ion-icon>
+    </ion-button>
+
+    <ion-button expand="full" on-click="onTab(2)" [ngClass]="{'active': tabIndex === 2}">
+      <ion-icon slot="icon-only" name="wallet-send" class="custom-icon"></ion-icon>
+    </ion-button>
+
+    <ion-button expand="full" on-click="onTab(3)" [ngClass]="{'active': tabIndex === 3}">
+      <ion-badge *ngIf="txsBadgeNumber" color="danger">{{txsBadgeNumber}}</ion-badge>
+      <ion-icon slot="icon-only" name="analytics-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button expand="full" on-click="onClose()">
+      <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+
+  <app-view-wallets *ngIf="tabIndex === 0" [index]="0" (changeMainWalletTabEvent)="onTab($event)"></app-view-wallets>
+  <app-ocore-receiver *ngIf="tabIndex === 1" [address]="address" (changeMainWalletTabEvent)="onTab($event)"></app-ocore-receiver>
+  <app-ocore-sender *ngIf="tabIndex === 2" [address]="address" (changeMainWalletTabEvent)="onTab($event)"></app-ocore-sender>
+  <app-transaction-history *ngIf="tabIndex === 3" [address]="address" (changeMainWalletTabEvent)="onTab($event)"></app-transaction-history>
+</ion-item-group>

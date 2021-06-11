@@ -1,0 +1,11 @@
+ion-item {
+  --min-height: inherit;
+}
+
+ion-label {
+  margin: 8px 0px;
+}
+
+ion-item-group * {
+  color: var(--ion-color-primary-contrast) !important;
+}

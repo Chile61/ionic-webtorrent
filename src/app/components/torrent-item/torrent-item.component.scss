@@ -1,0 +1,73 @@
+ion-item-group {
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  background-color: transparent;
+  max-height: 5px;
+  transition: .3s linear max-height;
+  background-color: #eee;
+}
+
+ion-item-group.visible {
+  max-height: 500px;
+}
+
+ion-item-group ion-img.background-image {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  // opacity: 0.6;
+  object-fit: cover;
+}
+
+ion-item-group * {
+  --ion-color-base: transparent;
+}
+
+.torrent-name {
+  margin-left: 3px;
+}
+
+video#video-for-poster {
+  display: none;
+}
+
+small {
+  display: block;
+}
+
+.toolbar-tab ion-button {
+  height: 56px;
+}
+
+.toolbar-tab ion-button.active {
+  --background: var(--ion-color-primary-tint);
+  filter: none;
+}
+
+ion-label,
+ion-icon,
+span,
+.custom-icon-button {
+  --ion-color-dark: #29415C;
+  color: #fff !important;
+
+  filter: drop-shadow(1px 1px var(--ion-color-dark)) drop-shadow(-1px 1px var(--ion-color-dark)) drop-shadow(1px -1px var(--ion-color-dark)) drop-shadow(-1px -1px var(--ion-color-dark))
+  drop-shadow(1.3px 1.3px var(--ion-color-dark)) drop-shadow(-1.3px 1.3px var(--ion-color-dark)) drop-shadow(1.3px -1.3px var(--ion-color-dark)) drop-shadow(-1.3px -1.3px var(--ion-color-dark));
+}
+
+.custom-icon-button.ion-activated {
+  filter: none;
+}
+
+.transition {
+  transition: max-height ease 1s;
+  max-height: 0px;
+  overflow: hidden;
+}
+
+.transition-show {
+  max-height: 100px;
+}

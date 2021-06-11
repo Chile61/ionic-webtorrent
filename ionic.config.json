@@ -1,0 +1,7 @@
+{
+  "name": "seedwallet",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

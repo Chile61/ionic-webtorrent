@@ -1,0 +1,26 @@
+ion-content {
+  // --ion-background-color: #222428;
+  // --ion-background-color: #000;
+}
+
+ion-img {
+  width: calc(50vw);
+  height: calc(50vw);
+  // height: 100%;
+  vertical-align: middle;
+  opacity: 0;
+  transition: all ease-out 1s;
+  margin: 0px auto;
+  margin-top: calc(50vh - 30vw);
+}
+
+ion-img.visible {
+  opacity: 1;
+}
+
+ion-label {
+  color: var(--ion-color-light-tint);
+  margin:0px auto;
+  display: block;
+  text-align: center;
+}

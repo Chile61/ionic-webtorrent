@@ -1,0 +1,30 @@
+<!-- Generated template for the EmojiPickerComponent component -->
+<div class="emoji-picker">
+  <div class="emoji-categories">
+    <span class="emoji-item ion-activatable" *ngFor="let item of emojiCategories; let i = index" (click)="selectCategory(item, i)">
+      {{item}}
+      <ion-ripple-effect></ion-ripple-effect>
+    </span>
+  </div>
+  <div class="emoji-items" #emojiGroups>
+    <div class="emoji-group" *ngFor="let group of emojiItems; let i = index" [id]="'group' + i">
+      <h4 class="emoji-title">{{emojiTitles[i]}}</h4>
+      <span class="emoji-item ion-activatable" (click)="setValue(item)" *ngFor="let item of group">
+        {{item}}
+        <ion-ripple-effect></ion-ripple-effect>
+      </span>
+    </div>
+    <!-- <ion-slides pager>
+
+      <ion-slide *ngFor="let items of emojiArr">
+        <div>
+          <span class="emoji-item ion-activatable" (click)="setValue(item)" *ngFor="let item of items">
+            {{item}}
+            <ion-ripple-effect></ion-ripple-effect>
+          </span>
+        </div>
+      </ion-slide>
+
+    </ion-slides> -->
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<app-torrent-item
+  [index]="index"
+  [key]="key"
+  [filterProps]="filterProps"
+  [visibility]="visibility"
+  *ngIf="type == 1">
+</app-torrent-item>
+
+<app-video-item
+  [index]="index"
+  [key]="key"
+  [filterProps]="filterProps"
+  [visibility]="visibility"
+  *ngIf="type == 2">
+</app-video-item>

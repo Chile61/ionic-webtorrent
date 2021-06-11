@@ -1,0 +1,165 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="primary" *ngIf="!isSearching">
+        <ion-buttons slot="start" *ngIf="!isSelectedContacts">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="start" *ngIf="isSelectedContacts">
+            <ion-button expand="full" on-click="onCancelSelect()">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Chat Address</ion-title>
+        <ion-buttons slot="end">
+            <ion-button expand="full" on-click="onToggleSearch()">
+                <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+            </ion-button>
+            <ion-button expand="full" on-click="onToggleAddButtons()">
+                <ion-icon slot="icon-only" name="person-add-outline" *ngIf="!isShowAddTools"></ion-icon>
+                <ion-icon slot="icon-only" name="close-circle-outline" *ngIf="isShowAddTools"></ion-icon>
+            </ion-button>
+            <ion-button expand="full" on-click="onRemoveContacts()" *ngIf="isSelectedContacts">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar color="primary" *ngIf="isSearching">
+        <ion-buttons slot="start">
+            <ion-button expand="full" on-click="onToggleSearch()">
+                <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-item color="transparent" class="search-text">
+          <ion-label position="floating">Search</ion-label>
+          <ion-input type="text" [(ngModel)]="searchKey"></ion-input>
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <!-- <ion-buttons *ngIf="isShowAddTools">
+      <ion-button expand="full">
+        <ion-icon slot="icon-only" name="qr-code-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button expand="full">
+        <ion-icon slot="icon-only" name="duplicate-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    <ion-item-group class="active" *ngIf="isShowAddTools">
+        <ion-row>
+            <ion-col size="4">
+                <ion-img [src]="qrCodeDataUrl" on-click="onExpandQRCode()"></ion-img>
+            </ion-col>
+            <ion-col size="8">
+                <ion-row>
+                    <ion-col size="12">
+                        <ion-item color="transparent">
+                            <ion-label position="floating">Click to paste another pairing code</ion-label>
+                            <ion-input type="text" (ionChange)="onChangeAddress($event)" [(ngModel)]="pairAddress"
+                                       (keypress)="onAddressKeyPress($event.keyCode)"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-buttons>
+                            <ion-button expand="full" on-click="onExpandQRCode()">
+                                <ion-icon slot="icon-only" name="expand-outline"></ion-icon>
+                            </ion-button>
+
+                            <ion-button expand="full" on-click="onCopyAddress()">
+                                <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+                            </ion-button>
+
+                            <ion-button expand="full" on-click="onShareAddress()">
+                                <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+                            </ion-button>
+
+                            <ion-button expand="full" on-click="onScanQRCode()">
+                                <ion-icon slot="icon-only" name="scan-outline"></ion-icon>
+                            </ion-button>
+
+                            <ion-button expand="full" on-click="onConfirm()">
+                                <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-item-group>
+    <ion-item-group>
+        <ion-item
+            *ngFor="let item of filteredAddresses(); let i = index"
+            button
+            on-click="onChat(i, item, $event)"
+            ion-long-press
+            (longPressed)="onSelectContact(i, item)"
+            [class.active]="item.isSelected">
+
+            <!--      user avatar area-->
+          <div class="position-relative">
+            <ion-avatar class="avatar-area" (click)="onEdit(i, item)">
+              <img src="../../../assets/img/avatar.svg">
+            </ion-avatar>
+            <div class="position-absolute bottom-0 right-0">
+              <ion-icon name="time" color="medium" *ngIf="i % 2 == 0"></ion-icon>
+              <ion-icon name="ellipse" color="success" *ngIf="i % 2 !== 0"></ion-icon>
+<!--              <ion-icon slot="icon-only" name="radio-button-on-outline" *ngIf="item.online"></ion-icon>-->
+<!--              <ion-icon slot="icon-only" name="radio-button-off-outline" *ngIf="!item.online"></ion-icon>-->
+            </div>
+          </div>
+
+
+            <ion-label padding-left>
+                <h2>
+                    {{item.name}}
+                </h2>
+                <p class="pt-dot5rem fs-dot5">
+                    {{assocLastMessage[item.device_address] ?  assocLastMessage[item.device_address].message.type !== messageType.Remove ?  removeHtmlTag(assocLastMessage[item.device_address].message.message) : 'Removed by the user' : ''}}
+                </p>
+                <!--        <small disabled>{{item.device_address}}</small>-->
+            </ion-label>
+
+            <div class="flex-col full-height right-area">
+              <div class="flex-row flex-align-center">
+<!--                <ion-icon slot="icon-only" name="radio-button-off-outline" *ngIf="!item.online"></ion-icon>-->
+                <p class="p-0 m-0 color-light">{{assocLastMessage[item.device_address] ? (assocLastMessage[item.device_address].date): ''}}</p>
+              </div>
+              <div class="flex-row pt-dot5rem ion-justify-content-end">
+                <div class="missed-call" *ngIf="getBadgeNum(item.device_address)">{{getBadgeNum(item.device_address)}}</div>
+                <!-- <ion-button on-click="onRemove(i, item)">
+                  <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                </ion-button> -->
+              </div>
+            </div>
+
+            <!--      <ion-label>-->
+            <!--        {{i + 1}}. {{item.name}}-->
+            <!--        <small disabled>{{item.device_address}}</small>-->
+            <!--      </ion-label>-->
+
+            <!--      <ion-buttons>-->
+            <!--        <ion-button expand="full" on-click="onChat(i, item, null)">-->
+            <!--          <ion-icon slot="icon-only" name="radio-button-on-outline" *ngIf="item.online"></ion-icon>-->
+            <!--          <ion-icon slot="icon-only" name="radio-button-off-outline" *ngIf="!item.online"></ion-icon>-->
+            <!--        </ion-button>-->
+
+            <!--        <ion-button expand="full" on-click="onChat(i, item, null)">-->
+            <!--          <ion-badge *ngIf="getBadgeNum(item.device_address)" color="danger">{{getBadgeNum(item.device_address)}}</ion-badge>-->
+            <!--          <ion-icon slot="icon-only" name="chatbox-outline"></ion-icon>-->
+            <!--        </ion-button>-->
+
+            <!--        <ion-button expand="full" on-click="onEdit(i, item)">-->
+            <!--          <ion-icon slot="icon-only" name="create-outline"></ion-icon>-->
+            <!--        </ion-button>-->
+
+            <!--        <ion-button expand="full" on-click="onRemove(i, item)">-->
+            <!--          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>-->
+            <!--        </ion-button>-->
+            <!--      </ion-buttons>-->
+        </ion-item>
+    </ion-item-group>
+</ion-content>
+
+<div class="overlay" padding [hidden]="!isExtended" on-click="onCloseExtended()">
+    <ion-img [src]="qrCodeDataUrl"></ion-img>
+</div>

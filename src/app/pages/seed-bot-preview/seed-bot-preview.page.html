@@ -1,0 +1,38 @@
+<ion-header *ngIf="data !== null">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{data.searchTag}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon [name]="categories[data.type].icon" slot="end"></ion-icon>
+      </ion-button>
+
+      <ion-button on-click="onDownload()">
+        <ion-icon slot="icon-only" name="cloud-download-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="data !== null">
+  <ion-item-group>
+    <ion-item color="transparent">
+      <span [ngClass]="{'ellipsis': true}">{{data.filename}}</span>
+      <span slot="end">{{getFileSize()}}</span>
+    </ion-item>
+
+    <video #video id="player" autoplay controls loop width="100%"></video>
+    <app-device-address [address]="data.wallet.address" [balance]="data.wallet.balance"></app-device-address>
+
+    <ion-item button>
+      <ion-label>{{data.searchTag}}</ion-label>
+      <ion-icon [name]="categories[data.type].icon" slot="end"></ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-note>{{data.description}}</ion-note>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

@@ -1,0 +1,32 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "buildConfig/android.keystore",
+            "storePassword": "android",
+            "alias": "android",
+            "password": "android",
+            "keystoreType": ""
+        },
+        "release": {
+            "keystore": "buildConfig/android.keystore",
+            "storePassword": "android",
+            "alias": "android",
+            "password": "android",
+            "keystoreType": ""
+        },
+        "device": {
+            "keystore": "buildConfig/android.keystore",
+            "storePassword": "android",
+            "alias": "android",
+            "password": "android",
+            "keystoreType": ""
+        },
+        "emulator": {
+            "keystore": "buildConfig/android.keystore",
+            "storePassword": "android",
+            "alias": "android",
+            "password": "android",
+            "keystoreType": ""
+        }
+    }
+}

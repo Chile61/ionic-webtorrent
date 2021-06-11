@@ -1,0 +1,8 @@
+ion-item {
+  display: flex;
+}
+
+ion-item > ion-label:nth-child(2) {
+  flex-grow: 4;
+  text-align: right;
+}

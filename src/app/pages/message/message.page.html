@@ -1,0 +1,187 @@
+<ion-header [translucent]="true">
+  <ion-toolbar [color]="isMessageSelected ? 'light' : 'primary'">
+    <ion-buttons slot="start">
+      <ion-back-button *ngIf="!isMessageSelected"></ion-back-button>
+      <ion-button *ngIf="isMessageSelected" (click)="onCancelMessageSelect()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title *ngIf="!!data && !isMessageSelected">{{data.name}}</ion-title>
+    <ion-title *ngIf="isMessageSelected">{{selectedMessages.length}}</ion-title>
+
+    <ion-buttons slot="end" *ngIf="isMessageSelected">
+      <ion-button (click)="onEditMessages()" *ngIf="selectedMessages.length === 1">
+        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onCopyMessages()">
+        <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onShareMessages()">
+        <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="onRemoveMessages()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end" *ngIf="!isMessageSelected">
+      <ion-button (click)="onPhoneCall()" *ngIf="canCall && hasAudioPermission">
+        <ion-icon slot="icon-only" name="call-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button (click)="onVideoCall()" *ngIf="canCall && hasAudioPermission && hasCamPermission">
+        <ion-icon slot="icon-only" name="videocam-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <div class="content">
+    <!-- <div class="message-log"></div>
+    <div class="send-form"></div>
+  </div> -->
+    <div class="message-log size-12 enable_text_select" #messagelog>
+      <div class="chat-message ion-activatable" *ngFor="let messageEvent of messageEvents"
+        (click)="onSelectMessage($event, messageEvent)" (touchstart)="onTouchStart(messageEvent)"
+        (touchend)="onTouchEnd()">
+        <div class="select-circle" *ngIf="isMessageSelected && messageEvent.type !== 'system'">
+          <ion-icon name="checkmark-circle" size="large" *ngIf="getSelectedMsgIndex(messageEvent) !== -1"></ion-icon>
+          <ion-icon name="ellipse-outline" size="large" *ngIf="getSelectedMsgIndex(messageEvent) === -1"></ion-icon>
+        </div>
+        <div [ngClass]="getMessageClass(messageEvent)" class="bubble">
+          <span [innerHTML]="messageEvent.message"></span>
+
+          <ion-button size="medium" circle fill="clear" on-click="onDownloadFile(messageEvent)"
+            *ngIf="messageEvent.type === 4 && messageEvent.bIncoming && !fileTransService.isTorrentExist(messageEvent.data)">
+            <ion-icon name="cloud-download-outline"></ion-icon>
+          </ion-button>
+          <ion-button size="medium" circle fill="clear" on-click="onOpenDirectory(messageEvent)"
+            *ngIf="messageEvent.type === 4">
+            <ion-icon name="folder-open-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button size="medium" circle fill="clear"
+            *ngIf="messageEvent.type === 4 && messageEvent.bIncoming && fileTransService.isCompletedDownload(messageEvent.data.infoHash)">
+            <ion-icon name="thumbs-up-outline"></ion-icon>
+          </ion-button>
+
+          <ion-spinner name="crescent"
+            *ngIf="messageEvent.type === 4 && fileTransService.isTorrentExist(messageEvent.data)"></ion-spinner>
+
+          <div [ngClass]="messageEvent.bIncoming ? 'left' : 'right'" class="msg-ts"
+            *ngIf="messageEvent.type !== 'system'">
+
+            <span *ngIf="isMyMessage(messageEvent)" class="right msg-icon"
+              [ngClass]="{'checked': messageEvent.isChecked}">
+              <ion-icon name="checkmark-done-outline" *ngIf="messageEvent.isChecked"></ion-icon>
+              <ion-icon name="checkmark-outline" *ngIf="!messageEvent.isChecked"></ion-icon>
+            </span>
+            {{messageEvent.timestamp * 1000 | date:'shortTime'}}
+          </div>
+
+        </div>
+        <span></span>
+        <div class="clear"></div>
+        <ion-ripple-effect *ngIf="messageEvent.type !== 'system'"></ion-ripple-effect>
+      </div>
+
+      <div class="chat-message" *ngFor="let messageEvent of sendingMsgEvents">
+        <div class="bubble from-me" [ngClass]="getMessageClass(messageEvent, false)">
+          <span [innerHTML]="messageEvent.message"></span>
+
+          <div class="msg-ts right">
+            <span class="right msg-icon">
+              <ion-icon name="time-outline"></ion-icon>
+            </span>
+
+            {{messageEvent.timestamp * 1000 | date:'shortTime'}}
+          </div>
+        </div>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="message-edit" *ngIf="isEditingStatus">
+      <ion-button fill="clear" circle (click)="onCancelEdit()">
+        <ion-icon slot="icon-only" name="close-outline" size="large"></ion-icon>
+      </ion-button>
+
+      <div class="message-edit-label">
+        <label class="bold">Edit Message</label>
+        <label class="ellipsis">{{selectedMessages [0].message}}</label>
+      </div>
+    </div>
+
+    <!-- <div class="media-record-overlay" [ngClass]="{'show': !isMediaRecordFree && mediaMode === 1}">
+      <div class="media-record-camera" #mediaRecordCamera>
+      </div>
+    </div> -->
+
+    <form name="chatForm" class="send-form columns" *ngIf="!!correspondent">
+      <ion-button size="small" circle fill="clear" class="btn-emoji" on-click="onToggleEmoji()"
+        *ngIf="isMediaRecordFree">
+        <ion-icon slot="icon-only" name="keypad-outline" *ngIf="isShowEmoji" size="large"></ion-icon>
+        <ion-icon slot="icon-only" name="happy-outline" *ngIf="!isShowEmoji" size="large"></ion-icon>
+      </ion-button>
+
+      <ion-textarea rows={1} id="message" name="message" [(ngModel)]="message" required class="textinput"
+        [placeholder]="'Text message to ' + correspondent.name" #messageinput (focusin)="onFocusInput()" autosize
+        *ngIf="isMediaRecordFree">
+      </ion-textarea>
+
+      <ion-button size="small" circle fill="clear" type="submit" slot="end" class="chatbutton right" on-click="onSend()"
+        *ngIf="message !== ''">
+        <ion-icon slot="icon-only" name="paper-plane-outline" size="large"></ion-icon>
+      </ion-button>
+
+      <ion-button size="small" circle fill="clear" type="submit" slot="end" class="chatbutton right" *ngIf="canCall && hasCamPermission"
+        on-click="onAddPhoto()">
+        <ion-icon slot="icon-only" name="camera-outline" size="large"></ion-icon>
+      </ion-button>
+
+      <ion-button size="small" circle fill="clear" type="submit" slot="end" class="chatbutton right"
+        on-click="onAddFile()" *ngIf="isBeforeMessage">
+        <ion-icon slot="icon-only" name="attach-outline" size="large"></ion-icon>
+      </ion-button>
+
+      <div class="textinput record-group" *ngIf="!isMediaRecordFree && isMediaAudioRecording">
+        <div class="recorded-time">{{mediaRecordedTimeText}}</div>
+        <div class="record-slide-cancel" *ngIf="isMediaRecordTouchRecord">
+          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+          Slide to Cancel
+        </div>
+        <div class="record-cancel">
+          <ion-button expand="full" fill="clear" *ngIf="isMediaRecordLockRecord" (click)="cancelMediaRecord()">
+            Cancel
+          </ion-button>
+        </div>
+      </div>
+
+      <div class="ripple-media-group" [ngClass]="{'active': !isMediaRecordFree}">
+        <div class="media-lock" *ngIf="isMediaRecordTouchRecord && isMediaAudioRecording">
+          <ion-icon slot="icon-only" name="chevron-up-outline"></ion-icon>
+          <ion-icon slot="icon-only" name="lock-closed-outline"></ion-icon>
+        </div>
+        <div class="ripple-media-btn active"></div>
+      </div>
+
+      <ion-button size="small" circle fill="clear" type="submit" slot="end" class="chatbutton right"
+        [ngClass]="{'pressed': !isMediaRecordFree}" on-click="onToggleMedia()"
+        *ngIf="canCall && hasCamPermission && message === '' && !isMediaRecordLockRecord" (touchstart)="onTouchMediaStart()"
+        (touchmove)="onTouchMediaMove($event)" (touchend)="onTouchMediaEnd()">
+        <ion-icon slot="icon-only" [name]="mediaMode === 0 ? 'mic-outline' : 'scan-circle-outline'" size="large">
+        </ion-icon>
+      </ion-button>
+
+      <ion-button size="small" circle fill="clear" type="submit" slot="end" class="chatbutton right pressed"
+        on-click="onSendMedia()" *ngIf="isMediaRecordLockRecord">
+        <ion-icon slot="icon-only" name="paper-plane-outline" size="large">
+        </ion-icon>
+      </ion-button>
+    </form>
+
+    <app-emoji-picker *ngIf="isShowEmoji" [(ngModel)]="message"></app-emoji-picker>
+  </div>
+</ion-content>

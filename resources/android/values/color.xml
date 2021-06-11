@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="torrent">#2dd36f</color>
+
+  <color name="asf">#e85e00</color>
+  <color name="avi">#e85e00</color>
+  <color name="flac">#e85e00</color>
+  <color name="flv">#e85e00</color>
+  <color name="mkv">#e85e00</color>
+  <color name="mov">#e85e00</color>
+  <color name="mp4">#e85e00</color>
+  <color name="webm">#e85e00</color>
+
+  <color name="aac">#228B22</color>
+  <color name="mp3">#228B22</color>
+  <color name="ogg">#228B22</color>
+  <color name="wav">#228B22</color>
+  
+  <color name="gif">#800080</color>
+  <color name="jpeg">#800080</color>
+  <color name="jpg">#800080</color>
+  <color name="png">#800080</color>
+  <color name="tif">#800080</color>
+
+  <color name="doc">#00A4EF</color>
+  <color name="docx">#00A4EF</color>
+  <color name="epub">#85b916</color>
+  <color name="pdf">#F25022</color>
+  <color name="mobi">#f7a037</color>
+  <color name="txt">#FFB900</color>
+  <color name="xls">#7FBA00</color>
+  <color name="xlsx">#7FBA00</color>
+  
+  <color name="zip">#FFB900</color>
+</resources>

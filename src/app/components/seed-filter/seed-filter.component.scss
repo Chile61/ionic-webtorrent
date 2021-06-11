@@ -1,0 +1,12 @@
+ion-fab-button {
+  --ion-color-base: #9cb5d2 !important;
+}
+
+ion-fab-button.active {
+  --ion-color-base: var(--ion-color-primary) !important;
+}
+
+ion-fab-button.fab-button-disabled {
+  --ion-color-base: var(--ion-color-medium, #92949c) !important;
+}
+

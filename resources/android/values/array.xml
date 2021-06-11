@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="file_extensions_strings">
+        <item>torrent</item>
+
+        <item>asf</item>
+        <item>avi</item>
+        <item>flac</item>
+        <item>flv</item>
+        <item>mkv</item>
+        <item>mov</item>
+        <item>mp4</item>
+        <item>webm</item>
+
+        <item>aac</item>
+        <item>mp3</item>
+        <item>ogg</item>
+        <item>wav</item>
+
+        <item>gif</item>
+        <item>jpeg</item>
+        <item>jpg</item>
+        <item>png</item>
+        <item>tif</item>
+
+        <item>doc</item>
+        <item>docx</item>
+        <item>epub</item>
+        <item>pdf</item>
+        <item>mobi</item>
+        <item>txt</item>
+        <item>xls</item>
+        <item>xlsx</item>
+
+        <item>zip</item>
+    </string-array>
+</resources>

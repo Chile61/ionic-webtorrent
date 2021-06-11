@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-item lines="none" color="primary">
+      <ion-input type="text" placeholder="Search" [(ngModel)]="searchKey" autofocus>
+      </ion-input>
+    </ion-item>
+    <ion-buttons slot="end">
+      <ion-button expand="full" on-click="onSearch()">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-toolbar color="transparent" no-margin>
+    <ion-buttons style="padding: 5px 0px;">
+      <ion-fab-button expand="full" color="medium" *ngFor="let item of categories; let i = index" on-click="onSelect(i)"
+        [ngClass]="{'active': status [i]}" class="circle">
+        <ion-icon [name]="item.icon"></ion-icon>
+      </ion-fab-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-row class="fab-title">
+    <ion-label *ngFor="let item of categories; let i = index">{{item.title}}</ion-label>
+  </ion-row>
+
+  <ion-item-group>
+    <ion-item *ngFor="let item of filterList; let i = index" on-click="onSelectItem(item, i)" button color="primary">
+      <ion-label>{{item.searchTag}}</ion-label>
+      <ion-icon [name]="categories[item.type].icon" slot="end"></ion-icon>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

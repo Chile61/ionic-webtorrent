@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transaction</ion-title>
+    <ion-buttons slot="end" *ngIf="data !== null">
+      <ion-button>
+        <ion-icon name="wallet-receive" class="custom-icon" *ngIf="data.action === 'received'"></ion-icon>
+        <ion-icon name="wallet-send" class="custom-icon" *ngIf="data.action === 'sent'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="data !== null">
+  <ion-header [translucent]="true">
+    <ion-toolbar class="align-center">
+      <ion-title size="large">{{getAmount()}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item-group>
+    <ion-item color="transparent" on-click="onCopyFrom()" lines="none">
+      <ion-label>From:</ion-label>
+      <ion-buttons slot="end">
+        <ion-button on-click="onCopyFrom()">
+          <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button on-click="onShareFrom()">
+          <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item color="transparent">
+      <ion-label class="align-right address">{{getAddressFrom()}}</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent" on-click="onCopyTo()" lines="none">
+      <ion-label>To:</ion-label>
+      <ion-buttons slot="end">
+        <ion-button on-click="onCopyTo()">
+          <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button on-click="onShareTo()">
+          <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item color="transparent">
+      <ion-label class="align-right address">{{getAddressTo()}}</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent" lines="none">
+      <ion-label>ID:</ion-label>
+      <ion-buttons slot="end">
+        <ion-button on-click="onCopyId()">
+          <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button on-click="onShareId()">
+          <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item color="transparent">
+      <ion-label class="align-right">{{data.unit}}</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent">
+      <ion-label>Date:</ion-label>
+      <ion-label>{{getDate()}}</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent">
+      <ion-label>Fee:</ion-label>
+      <ion-label>{{getFee()}}</ion-label>
+    </ion-item>
+
+    <ion-item color="transparent">
+      <ion-label>Confirmed:</ion-label>
+      <ion-icon name="checkmark-outline" *ngIf="data.confirmations === 1" slot="end" color="primary"></ion-icon>
+    </ion-item>
+  </ion-item-group>
+</ion-content>

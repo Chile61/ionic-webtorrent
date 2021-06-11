@@ -1,0 +1,16 @@
+<ion-item-group no-padding color="transparent" class="active">
+  <ion-row *ngIf="!isLoaded">
+    <ion-col class="align-center">
+      <ion-spinner name="dots" color="primary"></ion-spinner>
+    </ion-col>
+  </ion-row>
+
+  <ion-item *ngFor="let wallet of fullWallet" color="transparent" no-padding>
+    <ion-label class="small-font-label-address">{{wallet.address}}</ion-label>
+    <ion-label class="small-font-label-amount">{{wallet.amount}}</ion-label>
+  </ion-item>
+
+  <ion-item color="transparent" *ngIf="fullWallet.length === 0 && isLoaded" lines="none">
+    <ion-label class="align-center">No wallets</ion-label>
+  </ion-item>
+</ion-item-group>

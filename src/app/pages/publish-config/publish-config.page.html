@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="!doesInfoHashExists">Publish</ion-title>
+    <ion-title *ngIf="doesInfoHashExists">Published</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="align-center">
+  <ion-item-group>
+    <ion-item>
+      <ion-label position="floating">Title (max. 200 characters)</ion-label>
+      <ion-input [disabled]="doesInfoHashExists" type="text" maxlength="200" [(ngModel)]="seedConfig.title"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description (max. 2000 characters)</ion-label>
+      <ion-textarea [disabled]="doesInfoHashExists" class="description-area" rows="6" maxlength="2000" [(ngModel)]="seedConfig.description"></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="seedConfig.imageDataURL !== ''">
+      <ion-img class="img-publish" [src]="seedConfig.imageDataURL"></ion-img>
+    </ion-item>
+
+    <ion-item button (click)="onOpenPoster()" *ngIf="!doesInfoHashExists">
+      <ion-icon name="cloud-upload-outline" padding-right></ion-icon>
+      <ion-label>Select new thumbnail image</ion-label>
+    </ion-item>
+
+    <ion-item button (click)="onToggleAllowComments()" *ngIf="!doesInfoHashExists">
+      <ion-label>Allow Comments</ion-label>
+      <ion-icon [name]="getCheckName(seedConfig.isAllowComments)" slot="end"></ion-icon>
+    </ion-item>
+<!--
+    <ion-item button (click)="onTogglePublishOnSeedWeb()" *ngIf="!doesInfoHashExists">
+      <ion-label>Publish on SeedWeb</ion-label>
+      <ion-icon [name]="getEyeName(seedConfig.isPublishOnSeedWeb)" slot="end"></ion-icon>
+    </ion-item>
+-->
+    <ion-item *ngIf="seedConfig.isPublishOnSeedWeb && !doesInfoHashExists">
+      <ion-label>Video categorie</ion-label>
+      <ion-select value="{{seedConfig.selectedCategory}}" placeholder="None" (ionChange)="onChangeVideoCategory($event)" [disabled]="doesInfoHashExists">
+        <ion-select-option *ngFor="let videoCategory of videoCategories | keyvalue" value="{{videoCategory.key}}">{{videoCategory.value}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="seedConfig.isPublishOnSeedWeb && !doesInfoHashExists">
+      <ion-label>Video channel</ion-label>
+      <ion-select value="{{seedConfig.selectedChannel}}" placeholder="Select channel" (ionChange)="onChangeVideoChannel($event)" [disabled]="doesInfoHashExists">
+        <ion-select-option *ngFor="let videoChannel of videoChannels" value="{{videoChannel.id}}">{{videoChannel.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-radio-group value="{{seedConfig.whichPrivacy}}" *ngIf="seedConfig.isPublishOnSeedWeb && !doesInfoHashExists" (ionChange)="onChangePrivacy($event)">
+      <ion-list-header>
+        <ion-label>Select privacy</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngFor="let privacy of privacies; let i = index">
+        <ion-label>{{privacy}}</ion-label>
+        <ion-radio slot="end" color="primary" value="{{i}}" [disabled]="doesInfoHashExists"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+<!--
+    <ion-item button (click)="onTogglePublishOnSeedNet()" *ngIf="seedConfig.isSeedNetAllowed">
+      <ion-label>Publish in SeedNet</ion-label>
+      <ion-icon [name]="getEyeName(seedConfig.isPublishOnSeedNet)" slot="end"></ion-icon>
+    </ion-item>
+-->
+    <ion-item class="link-seed" *ngIf="seedConfig.linkSeedWeb && doesInfoHashExists">
+      <ion-label>Link {{textSeedWeb}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="onCopyLinkSeedWeb()">
+          <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="onShareLinkSeedWeb()">
+          <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item class="link-seed" *ngIf="seedConfig.linkSeedNet && doesInfoHashExists">
+      <ion-label>Link {{textSeedNet}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="onCopyLinkSeedNet()">
+          <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="onShareLinkSeedNet()">
+          <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+    <ion-item *ngIf="seedConfig.walletAddress">
+      <ion-label position="floating">Wallet Address</ion-label>
+      <ion-input [disabled]="true" type="text" [(ngModel)]="seedConfig.walletAddress"></ion-input>
+      <ion-buttons slot="end">
+        <ion-button (click)="onCopyWalletAddress()">
+          <ion-icon slot="icon-only" name="copy-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-button *ngIf="(seedConfig.isPublishOnSeedWeb || seedConfig.isPublishOnSeedNet) && !doesInfoHashExists" (click)="OnPublish()">
+    Publish now
+  </ion-button>
+</ion-content>

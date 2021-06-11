@@ -1,0 +1,23 @@
+ion-item-group {
+  background-size: cover;
+  overflow: hidden;
+  position: relative;
+  background-color: var(--ion-color-primary-shade);
+}
+
+ion-item-group * {
+  // --ion-color-base: transparent;
+  color: var(--ion-color-primary-contrast);
+}
+
+small {
+  display: block;
+}
+
+// ion-button.active {
+//   background-color: #222;
+// }
+
+ion-toolbar[no-margin] {
+  --min-height: 0px;
+}

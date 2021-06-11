@@ -1,0 +1,49 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>MediaCall</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content *ngIf="!isInCalling">
+  <div class="call-header">
+    <p class="ellipsis">{{contactName}}</p>
+  </div>
+
+  <div class="text-right call-description">
+    {{dots}}{{statusTitle}}
+  </div>
+
+  <div class="flex"></div>
+  <div class="person">
+    <ion-img src="assets/img/user.png"></ion-img>
+
+    <ion-button (click)="onAcceptCall()" circle color="success" class="call-accept" *ngIf="callService.peerStatus === 0 || callService.peerStatus === 2 || callService.peerStatus === 6">
+      <ion-icon slot="icon-only" name="call-outline"></ion-icon>
+    </ion-button>
+    <ion-button (click)="onDismissCall()" circle color="danger" class="call-dismiss">
+      <ion-icon slot="icon-only" name="call-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
+
+<ion-content [ngClass]="{'hidden': !isInCalling }">
+
+  <form [style.display]="isVideoCall ? 'block' : 'none'">
+    <div class="video-full" #videoRemoteContainer></div>
+    <div class="video-mine" #videoMineContainer></div>
+  </form>
+
+  <div class="person">
+    <ion-button (click)="onSwitchCam()" circle color="primary" class="call-dismiss" [ngClass]="{'inactive': !isVideoCall}">
+      <ion-icon slot="icon-only" name="camera-reverse-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="onDismissCall()" circle color="danger" class="call-dismiss">
+      <ion-icon slot="icon-only" name="call-outline"></ion-icon>
+    </ion-button>
+
+    <ion-button (click)="onToggleMic()" circle [ngClass]="{'inactive': !isMicEnabled}">
+      <ion-icon slot="icon-only" name="mic-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>

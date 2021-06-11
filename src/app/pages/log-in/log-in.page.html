@@ -1,0 +1,42 @@
+<ion-content>
+  <ion-img src="assets/img/logo.jpg" class="m-v-center"></ion-img>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSignIn()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Email or Username</ion-label>
+      <ion-input type="text" formControlName="email" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+      This field is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+      Please provide valid email id.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+      Password is required.
+    </span>
+
+    <ion-item lines="full">
+      <ion-checkbox color="primary" formControlName="autoLogin"></ion-checkbox>
+      <ion-label>Save login data and log in automatically</ion-label>
+    </ion-item>
+
+    <ion-row *ngIf="isLoading">
+      <ion-col class="align-center">
+        <ion-spinner name="dots" color="primary"></ion-spinner>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" expand="block" [disabled]="isLoading">Sign In</ion-button>
+        <ion-button color="primary" fill="clear" expand="block" (click)="onBack()">Use only SeedWallet and SeedChat</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
